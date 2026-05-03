@@ -1,0 +1,80 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "sorry": "https://docs.sorryapp.com/vocab/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "StatusPage": "sorry:StatusPage",
+    "Component": "sorry:Component",
+    "Notice": "sorry:Notice",
+    "NoticeUpdate": "sorry:NoticeUpdate",
+    "Subscriber": "schema:Person",
+
+    "id": "@id",
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "timezone": {
+      "@id": "sorry:timezone",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "sorry:state",
+      "@type": "xsd:string"
+    },
+    "support_email": {
+      "@id": "schema:email",
+      "@type": "xsd:string"
+    },
+    "support_url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "locale": {
+      "@id": "schema:inLanguage",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "sorry:noticeType",
+      "@type": "xsd:string"
+    },
+    "subject": {
+      "@id": "schema:headline",
+      "@type": "xsd:string"
+    },
+    "synopsis": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "link": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "began_at": {
+      "@id": "schema:startDate",
+      "@type": "xsd:dateTime"
+    },
+    "ended_at": {
+      "@id": "schema:endDate",
+      "@type": "xsd:dateTime"
+    },
+    "created_at": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updated_at": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "email": {
+      "@id": "schema:email",
+      "@type": "xsd:string"
+    },
+    "content": {
+      "@id": "schema:text",
+      "@type": "xsd:string"
+    }
+  }
+}

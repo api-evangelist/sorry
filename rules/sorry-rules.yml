@@ -1,0 +1,113 @@
+extends: spectral:oas
+rules:
+  # Sorry API uses nested resource paths - enforce consistent pattern
+  sorry-nested-resource-pattern:
+    description: Sorry API uses /pages/{page_id}/... nested resource pattern
+    severity: info
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/pages(/.*)?$"
+
+  # All operations must have summaries in Title Case
+  sorry-operation-summary-title-case:
+    description: Operation summaries must use Title Case
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9]*([ ][A-Z][a-zA-Z0-9]*)*$"
+
+  # All operations must have operationId
+  sorry-operation-id-required:
+    description: All operations must have an operationId
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  # operationId must use camelCase
+  sorry-operation-id-camel-case:
+    description: OperationId must use camelCase convention
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  # All operations must have tags
+  sorry-operation-has-tags:
+    description: All operations must have at least one tag
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: truthy
+
+  # POST operations must have requestBody
+  sorry-post-has-request-body:
+    description: POST and PATCH operations must define a requestBody
+    severity: error
+    given: "$.paths[*][post,patch]"
+    then:
+      field: requestBody
+      function: truthy
+
+  # Must document 401 response
+  sorry-401-response:
+    description: All operations must document a 401 Unauthorized response
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    then:
+      field: "401"
+      function: defined
+
+  # DELETE operations should return 204
+  sorry-delete-returns-204:
+    description: DELETE operations should return 204 No Content
+    severity: warn
+    given: "$.paths[*].delete.responses"
+    then:
+      field: "204"
+      function: defined
+
+  # All tags must be Title Case
+  sorry-tags-title-case:
+    description: All tags in the spec must use Title Case
+    severity: warn
+    given: "$.tags[*].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9]*([ ][A-Z][a-zA-Z0-9]*)*$"
+
+  # Rate limiting documentation
+  sorry-rate-limit-documented:
+    description: API info should mention rate limiting (10 req/s)
+    severity: info
+    given: "$.info"
+    then:
+      field: description
+      function: truthy
+
+  # Security must be defined
+  sorry-security-defined:
+    description: Bearer auth security must be defined
+    severity: error
+    given: "$"
+    then:
+      field: security
+      function: defined
+
+  # Response schemas for successful responses
+  sorry-response-schema-defined:
+    description: Successful responses must define a JSON schema
+    severity: warn
+    given: "$.paths[*][get,post,patch].responses['200','201'].content['application/json']"
+    then:
+      field: schema
+      function: defined

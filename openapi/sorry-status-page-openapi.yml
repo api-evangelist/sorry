@@ -1,0 +1,1149 @@
+openapi: 3.0.0
+info:
+  title: Sorry Status Page API
+  description: >-
+    The Sorry™ REST API provides programmatic access to manage status pages,
+    components, notices, notice updates, and subscribers. Build automated
+    incident communication workflows that keep your customers informed during
+    outages and maintenance windows.
+  version: v1
+  contact:
+    name: Sorry App Support
+    url: https://docs.sorryapp.com/v1
+  license:
+    name: Proprietary
+    url: https://www.sorryapp.com/
+servers:
+  - url: https://api.sorryapp.com/v1
+    description: Sorry App REST API v1
+tags:
+  - name: Status Pages
+    description: Manage status pages in your account
+  - name: Components
+    description: Manage components displayed on status pages
+  - name: Notices
+    description: Manage incident and maintenance notices
+  - name: Notice Updates
+    description: Publish updates to active notices
+  - name: Subscribers
+    description: Manage subscriber lists for status page notifications
+paths:
+  /pages:
+    get:
+      operationId: listPages
+      summary: List Status Pages
+      description: Displays a list of all status pages within the account.
+      tags:
+        - Status Pages
+      responses:
+        '200':
+          description: Successful response with list of status pages
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagesResponse'
+        '401':
+          description: Unauthorized - invalid or missing bearer token
+        '429':
+          description: Rate limit exceeded - 10 requests per second
+    post:
+      operationId: createPage
+      summary: Create Status Page
+      description: Create a new status page for your account.
+      tags:
+        - Status Pages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePageRequest'
+      responses:
+        '201':
+          description: Status page created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResponse'
+        '400':
+          description: Bad request - missing required fields
+        '401':
+          description: Unauthorized
+  /pages/{page_id}:
+    get:
+      operationId: getPage
+      summary: Get Status Page
+      description: Retrieve details for a single status page.
+      tags:
+        - Status Pages
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          description: Unique identifier for the status page
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with status page details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Status page not found
+    patch:
+      operationId: updatePage
+      summary: Update Status Page
+      description: Update settings for a status page such as name, timezone, and support links.
+      tags:
+        - Status Pages
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          description: Unique identifier for the status page
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePageRequest'
+      responses:
+        '200':
+          description: Status page updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Status page not found
+    delete:
+      operationId: deletePage
+      summary: Delete Status Page
+      description: Delete the status page including all notices, components, and subscribers.
+      tags:
+        - Status Pages
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          description: Unique identifier for the status page
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Status page deleted successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Status page not found
+  /pages/{page_id}/components:
+    get:
+      operationId: listComponents
+      summary: List Components
+      description: Displays a list of all components for a single status page.
+      tags:
+        - Components
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          description: Unique identifier for the status page
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with list of components
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentsResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Status page not found
+    post:
+      operationId: createComponent
+      summary: Create Component
+      description: Add a new component to a status page.
+      tags:
+        - Components
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          description: Unique identifier for the status page
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateComponentRequest'
+      responses:
+        '201':
+          description: Component created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /pages/{page_id}/components/{component_id}:
+    get:
+      operationId: getComponent
+      summary: Get Component
+      description: Retrieve details for a single component including its current state.
+      tags:
+        - Components
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: component_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with component details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Component not found
+    patch:
+      operationId: updateComponent
+      summary: Update Component
+      description: Update properties of a component such as name, description, or position.
+      tags:
+        - Components
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: component_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateComponentRequest'
+      responses:
+        '200':
+          description: Component updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Component not found
+    delete:
+      operationId: deleteComponent
+      summary: Delete Component
+      description: Delete a component. Does not delete associated notices.
+      tags:
+        - Components
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: component_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Component deleted successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Component not found
+  /pages/{page_id}/notices:
+    get:
+      operationId: listNotices
+      summary: List Notices
+      description: Displays a list of all notices for a single status page.
+      tags:
+        - Notices
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: include
+          in: query
+          description: Comma-separated related resources to include (e.g., components,updates)
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with list of notices
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoticesResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Status page not found
+    post:
+      operationId: createNotice
+      summary: Create Notice
+      description: Create a new incident, maintenance, or general notice on a status page.
+      tags:
+        - Notices
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNoticeRequest'
+      responses:
+        '201':
+          description: Notice created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoticeResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /pages/{page_id}/notices/{notice_id}:
+    get:
+      operationId: getNotice
+      summary: Get Notice
+      description: Retrieve details for a single notice.
+      tags:
+        - Notices
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: notice_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: include
+          in: query
+          description: Related resources to include (e.g., components,updates)
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with notice details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoticeResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Notice not found
+    patch:
+      operationId: updateNotice
+      summary: Update Notice
+      description: Update a notice's details such as subject, state, or affected components.
+      tags:
+        - Notices
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: notice_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNoticeRequest'
+      responses:
+        '200':
+          description: Notice updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoticeResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Notice not found
+    delete:
+      operationId: deleteNotice
+      summary: Delete Notice
+      description: Delete a notice from the status page.
+      tags:
+        - Notices
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: notice_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Notice deleted successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Notice not found
+  /pages/{page_id}/notices/{notice_id}/updates:
+    get:
+      operationId: listNoticeUpdates
+      summary: List Notice Updates
+      description: Displays a list of all updates for a single notice.
+      tags:
+        - Notice Updates
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: notice_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with list of notice updates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoticeUpdatesResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Notice not found
+    post:
+      operationId: createNoticeUpdate
+      summary: Create Notice Update
+      description: Publish a new update to an existing notice.
+      tags:
+        - Notice Updates
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: notice_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNoticeUpdateRequest'
+      responses:
+        '201':
+          description: Notice update created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoticeUpdateResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /pages/{page_id}/notices/{notice_id}/updates/{update_id}:
+    get:
+      operationId: getNoticeUpdate
+      summary: Get Notice Update
+      description: Retrieve details of a single notice update.
+      tags:
+        - Notice Updates
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: notice_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: update_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with notice update details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoticeUpdateResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Notice update not found
+    patch:
+      operationId: updateNoticeUpdate
+      summary: Update Notice Update
+      description: Modify an existing notice update, such as correcting content.
+      tags:
+        - Notice Updates
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: notice_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: update_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNoticeUpdateRequest'
+      responses:
+        '200':
+          description: Notice update modified successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NoticeUpdateResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteNoticeUpdate
+      summary: Delete Notice Update
+      description: Remove an update from a notice without deleting the notice itself.
+      tags:
+        - Notice Updates
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: notice_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: update_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Notice update deleted successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Notice update not found
+  /pages/{page_id}/subscribers:
+    get:
+      operationId: listSubscribers
+      summary: List Subscribers
+      description: Displays a list of all subscribers for a status page (500 per page).
+      tags:
+        - Subscribers
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Pagination page number (500 subscribers per page)
+          required: false
+          schema:
+            type: integer
+        - name: include
+          in: query
+          description: Related resources to include (valid value: components)
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with list of subscribers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscribersResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Status page not found
+    post:
+      operationId: createSubscriber
+      summary: Create Subscriber
+      description: Add a new subscriber to a status page.
+      tags:
+        - Subscribers
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSubscriberRequest'
+      responses:
+        '201':
+          description: Subscriber created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /pages/{page_id}/subscribers/{subscriber_id}:
+    get:
+      operationId: getSubscriber
+      summary: Get Subscriber
+      description: Retrieve details for a single subscriber.
+      tags:
+        - Subscribers
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: subscriber_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with subscriber details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Subscriber not found
+    patch:
+      operationId: updateSubscriber
+      summary: Update Subscriber
+      description: Update a subscriber's contact information or component subscriptions.
+      tags:
+        - Subscribers
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: subscriber_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSubscriberRequest'
+      responses:
+        '200':
+          description: Subscriber updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteSubscriber
+      summary: Delete Subscriber
+      description: Remove a subscriber from a status page.
+      tags:
+        - Subscribers
+      parameters:
+        - name: page_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: subscriber_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Subscriber removed successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Subscriber not found
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: User-specific OAuth2 bearer token obtained from the Sorry app dashboard
+  schemas:
+    Page:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the status page
+        name:
+          type: string
+          description: Display name of the status page
+        timezone:
+          type: string
+          description: Timezone for the status page
+        state:
+          type: string
+          description: Current state of the status page
+        support_email:
+          type: string
+          format: email
+          description: Support contact email address
+        support_telephone:
+          type: string
+          description: Support telephone number
+        support_url:
+          type: string
+          format: uri
+          description: Support URL
+        locale:
+          type: string
+          description: Locale setting for the page
+        visible_to_search:
+          type: boolean
+          description: Whether the page is visible to search engines
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    PagesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Page'
+        count:
+          type: integer
+    PageResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Page'
+    CreatePageRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new status page
+        timezone:
+          type: string
+          description: Timezone setting
+        support_email:
+          type: string
+          format: email
+        support_url:
+          type: string
+          format: uri
+    UpdatePageRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        timezone:
+          type: string
+        support_email:
+          type: string
+          format: email
+        support_telephone:
+          type: string
+        support_url:
+          type: string
+          format: uri
+        visible_to_search:
+          type: boolean
+    Component:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the component
+        state:
+          type: string
+          description: Current operational state
+          enum:
+            - operational
+            - degraded
+            - partially-degraded
+        name:
+          type: string
+          description: Component name
+        description:
+          type: string
+          description: Optional component description
+        position:
+          type: integer
+          description: Display ordering position (lower = higher)
+        parent_id:
+          type: integer
+          description: Optional parent component ID for grouping
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ComponentsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Component'
+        count:
+          type: integer
+    ComponentResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Component'
+    CreateComponentRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        position:
+          type: integer
+        parent_id:
+          type: integer
+    UpdateComponentRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        position:
+          type: integer
+        parent_id:
+          type: integer
+    Notice:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+            - unplanned
+            - planned
+            - general
+        state:
+          type: string
+          description: Current state of the notice
+        timeline_state:
+          type: string
+        subject:
+          type: string
+          description: Title of the notice
+        synopsis:
+          type: string
+        link:
+          type: string
+          format: uri
+        tag_list:
+          type: array
+          items:
+            type: string
+        began_at:
+          type: string
+          format: date-time
+        ended_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    NoticesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notice'
+        count:
+          type: integer
+    NoticeResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Notice'
+    CreateNoticeRequest:
+      type: object
+      required:
+        - type
+        - subject
+      properties:
+        type:
+          type: string
+          enum:
+            - unplanned
+            - planned
+            - general
+        subject:
+          type: string
+        initial_comment:
+          type: string
+        state:
+          type: string
+        component_ids:
+          type: array
+          items:
+            type: integer
+        should_publish:
+          type: boolean
+        begins_at_date:
+          type: string
+          format: date
+        begins_at_time:
+          type: string
+        duration_in_minutes:
+          type: integer
+    UpdateNoticeRequest:
+      type: object
+      properties:
+        subject:
+          type: string
+        state:
+          type: string
+        additional_comment:
+          type: string
+        component_ids:
+          type: array
+          items:
+            type: integer
+        should_publish:
+          type: boolean
+    NoticeUpdate:
+      type: object
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+        should_publish:
+          type: boolean
+        link:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    NoticeUpdatesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoticeUpdate'
+        count:
+          type: integer
+    NoticeUpdateResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/NoticeUpdate'
+    CreateNoticeUpdateRequest:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+          description: Text content for the notice update
+    Subscriber:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        nickname:
+          type: string
+        company:
+          type: string
+        tag_list:
+          type: array
+          items:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    SubscribersResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscriber'
+        count:
+          type: integer
+    SubscriberResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Subscriber'
+    CreateSubscriberRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        nickname:
+          type: string
+        company:
+          type: string
+        tag_list:
+          type: string
+        component_ids:
+          type: array
+          items:
+            type: integer
+    UpdateSubscriberRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        nickname:
+          type: string
+        company:
+          type: string
+        tag_list:
+          type: string
+security:
+  - BearerAuth: []

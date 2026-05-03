@@ -1,0 +1,98 @@
+name: Sorry Vocabulary
+description: >-
+  Domain vocabulary for the Sorry™ (SorryApp) status page platform, covering
+  incident management, service communication, and subscriber notification concepts.
+version: "1.0"
+created: "2026-05-02"
+modified: "2026-05-02"
+terms:
+  - term: Status Page
+    definition: >-
+      A public-facing web page that communicates the current operational status of
+      services and components to customers. Each page can have multiple components,
+      notices, and subscriber lists.
+    tags:
+      - Core Concept
+
+  - term: Component
+    definition: >-
+      An individual service or feature displayed on a status page. Components have
+      operational states (operational, degraded, partially-degraded) that change
+      during incidents.
+    tags:
+      - Status Page
+
+  - term: Notice
+    definition: >-
+      A posted communication about a planned or unplanned service event. Notices
+      have types (unplanned, planned, general) and progress through lifecycle states.
+    tags:
+      - Incident Management
+
+  - term: Notice Type
+    definition: >-
+      The classification of a notice indicating whether it relates to an unplanned
+      outage, planned maintenance, or a general announcement.
+    values:
+      - unplanned
+      - planned
+      - general
+    tags:
+      - Notice
+
+  - term: Notice Update
+    definition: >-
+      A timestamped message posted to an existing notice as the incident progresses.
+      Updates keep subscribers informed of investigation progress and resolution steps.
+    tags:
+      - Incident Management
+
+  - term: Subscriber
+    definition: >-
+      A customer who has signed up to receive notifications from a status page via
+      email or SMS when incidents are created or updated.
+    tags:
+      - Notifications
+
+  - term: State
+    definition: >-
+      The current operational condition of a status page, component, or notice.
+      Component states include operational, degraded, and partially-degraded.
+    tags:
+      - Status
+
+  - term: Bearer Token
+    definition: >-
+      An OAuth2 user-specific access token required for all Sorry API requests.
+      Tokens are tied to individual user accounts and obtained from the management dashboard.
+    tags:
+      - Authentication
+
+  - term: Rate Limit
+    definition: >-
+      The Sorry API enforces a maximum of 10 requests per second per API token.
+      Exceeding this limit returns HTTP 429 responses.
+    tags:
+      - API Limits
+
+  - term: Include
+    definition: >-
+      A query parameter that allows embedding related resources in API responses
+      using dot notation (e.g., include=notices.updates). Reduces the number of
+      required API calls.
+    tags:
+      - API Design
+
+  - term: Planned Maintenance
+    definition: >-
+      A scheduled service window communicated in advance to customers. Created as
+      a notice with type=planned including begin time and estimated duration.
+    tags:
+      - Operations
+
+  - term: Incident
+    definition: >-
+      An unplanned service disruption or degradation affecting one or more components.
+      Created as a notice with type=unplanned and updated as the investigation progresses.
+    tags:
+      - Operations

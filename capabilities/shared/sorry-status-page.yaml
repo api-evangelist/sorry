@@ -1,0 +1,485 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Sorry Status Page API"
+  description: >-
+    The Sorry™ REST API provides programmatic access to manage status pages,
+    components, incident notices, notice updates, and subscriber lists. Enables
+    automated incident communication workflows.
+  tags:
+    - Status Pages
+    - Incident Management
+    - Notifications
+    - Subscribers
+    - Developer Tools
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SORRY_BEARER_TOKEN: SORRY_BEARER_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: sorry-api
+      baseUri: https://api.sorryapp.com/v1
+      description: "Sorry™ REST API for status page and incident management"
+      authentication:
+        type: bearer
+        token: "{{SORRY_BEARER_TOKEN}}"
+      resources:
+        - name: pages
+          path: /pages
+          description: Status page management
+          operations:
+            - name: list-pages
+              method: GET
+              description: List all status pages in the account
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: create-page
+              method: POST
+              description: Create a new status page
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  timezone: "{{tools.timezone}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: get-page
+              method: GET
+              description: Retrieve a single status page by ID
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                  description: Status page identifier
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: update-page
+              method: PATCH
+              description: Update status page settings
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                  description: Status page identifier
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  support_email: "{{tools.support_email}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: delete-page
+              method: DELETE
+              description: Delete a status page and all its content
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                  description: Status page identifier
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: components
+          path: /pages/{page_id}/components
+          description: Component management for status pages
+          operations:
+            - name: list-components
+              method: GET
+              description: List all components for a status page
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                  description: Status page identifier
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: create-component
+              method: POST
+              description: Add a new component to a status page
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                  description: Status page identifier
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+                  description: "{{tools.description}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: get-component
+              method: GET
+              description: Retrieve a component including its current operational state
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                  description: Status page identifier
+                - name: component_id
+                  in: path
+                  type: string
+                  required: true
+                  description: Component identifier
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: update-component
+              method: PATCH
+              description: Update component properties
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                - name: component_id
+                  in: path
+                  type: string
+                  required: true
+              body:
+                type: json
+                data:
+                  name: "{{tools.name}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: delete-component
+              method: DELETE
+              description: Delete a component from a status page
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                - name: component_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: notices
+          path: /pages/{page_id}/notices
+          description: Incident and maintenance notice management
+          operations:
+            - name: list-notices
+              method: GET
+              description: List all notices for a status page
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                - name: include
+                  in: query
+                  type: string
+                  required: false
+                  description: Related resources to include (components,updates)
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: create-notice
+              method: POST
+              description: Create an incident or maintenance notice
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+              body:
+                type: json
+                data:
+                  type: "{{tools.type}}"
+                  subject: "{{tools.subject}}"
+                  initial_comment: "{{tools.initial_comment}}"
+                  should_publish: "{{tools.should_publish}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: get-notice
+              method: GET
+              description: Retrieve a single notice
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                - name: notice_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: update-notice
+              method: PATCH
+              description: Update notice details or state
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                - name: notice_id
+                  in: path
+                  type: string
+                  required: true
+              body:
+                type: json
+                data:
+                  state: "{{tools.state}}"
+                  additional_comment: "{{tools.additional_comment}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: delete-notice
+              method: DELETE
+              description: Delete a notice from the status page
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                - name: notice_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: notice-updates
+          path: /pages/{page_id}/notices/{notice_id}/updates
+          description: Notice update publishing
+          operations:
+            - name: list-notice-updates
+              method: GET
+              description: List all updates for a notice
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                - name: notice_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: create-notice-update
+              method: POST
+              description: Publish a new update to an existing notice
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                - name: notice_id
+                  in: path
+                  type: string
+                  required: true
+              body:
+                type: json
+                data:
+                  content: "{{tools.content}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+        - name: subscribers
+          path: /pages/{page_id}/subscribers
+          description: Subscriber list management
+          operations:
+            - name: list-subscribers
+              method: GET
+              description: List all subscribers for a status page
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                - name: page
+                  in: query
+                  type: integer
+                  required: false
+                  description: Pagination page (500 per page)
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: create-subscriber
+              method: POST
+              description: Add a new subscriber to the status page
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+              body:
+                type: json
+                data:
+                  email: "{{tools.email}}"
+                  first_name: "{{tools.first_name}}"
+                  last_name: "{{tools.last_name}}"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+            - name: delete-subscriber
+              method: DELETE
+              description: Remove a subscriber from the status page
+              inputParameters:
+                - name: page_id
+                  in: path
+                  type: string
+                  required: true
+                - name: subscriber_id
+                  in: path
+                  type: string
+                  required: true
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: sorry-api-rest
+      resources:
+        - path: /v1/pages
+          name: pages
+          description: Status page management
+          operations:
+            - method: GET
+              name: list-pages
+              description: List all status pages
+            - method: POST
+              name: create-page
+              description: Create a new status page
+
+        - path: /v1/pages/{page_id}/notices
+          name: notices
+          description: Notice management
+          operations:
+            - method: GET
+              name: list-notices
+              description: List notices for a status page
+            - method: POST
+              name: create-notice
+              description: Create a new notice
+
+    - type: mcp
+      port: 9100
+      namespace: sorry-api-mcp
+      transport: http
+      tools:
+        - name: list-pages
+          description: List all status pages in the Sorry account
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "sorry-api.list-pages"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-notice
+          description: Create an incident or maintenance notice on a status page
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "sorry-api.create-notice"
+          with:
+            page_id: "tools.page_id"
+            type: "tools.type"
+            subject: "tools.subject"
+            initial_comment: "tools.initial_comment"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-subscribers
+          description: List subscribers for a status page
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "sorry-api.list-subscribers"
+          with:
+            page_id: "tools.page_id"
+          outputParameters:
+            - type: object
+              mapping: "$."

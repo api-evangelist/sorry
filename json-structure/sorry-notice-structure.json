@@ -1,0 +1,24 @@
+{
+  "title": "Sorry Notice Structure",
+  "description": "Structure of an incident or maintenance notice in the Sorry status page platform",
+  "type": "object",
+  "fields": [
+    { "name": "id", "type": "string", "description": "Unique notice identifier" },
+    {
+      "name": "type",
+      "type": "string",
+      "enum": ["unplanned", "planned", "general"],
+      "description": "Notice type: unplanned (incident), planned (maintenance), or general"
+    },
+    { "name": "state", "type": "string", "description": "Current notice state" },
+    { "name": "timeline_state", "type": "string", "description": "Timeline display state" },
+    { "name": "subject", "type": "string", "description": "Notice title" },
+    { "name": "synopsis", "type": "string", "description": "Short summary" },
+    { "name": "link", "type": "string", "format": "uri", "description": "Permalink URL" },
+    { "name": "tag_list", "type": "array", "items": "string", "description": "Associated tags" },
+    { "name": "began_at", "type": "string", "format": "date-time" },
+    { "name": "ended_at", "type": "string", "format": "date-time" },
+    { "name": "created_at", "type": "string", "format": "date-time" },
+    { "name": "updated_at", "type": "string", "format": "date-time" }
+  ]
+}

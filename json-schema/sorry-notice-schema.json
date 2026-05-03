@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/sorry/main/json-schema/sorry-notice-schema.json",
+  "title": "Sorry Notice",
+  "description": "Schema for an incident or maintenance notice in the Sorry app platform",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the notice"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["unplanned", "planned", "general"],
+      "description": "Type of notice: unplanned (incident), planned (maintenance), or general"
+    },
+    "state": {
+      "type": "string",
+      "description": "Current state of the notice (e.g., open, monitoring, resolved)"
+    },
+    "timeline_state": {
+      "type": "string",
+      "description": "Timeline-specific state for display purposes"
+    },
+    "subject": {
+      "type": "string",
+      "description": "Title of the notice displayed to customers"
+    },
+    "synopsis": {
+      "type": "string",
+      "description": "Short summary of the notice"
+    },
+    "link": {
+      "type": "string",
+      "format": "uri",
+      "description": "Permalink URL for the notice"
+    },
+    "tag_list": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of tags associated with the notice"
+    },
+    "began_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the incident or maintenance began"
+    },
+    "ended_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the incident or maintenance ended"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the notice was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the notice was last updated"
+    }
+  },
+  "required": ["id", "type", "subject"]
+}

@@ -1,0 +1,293 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Sorry Incident Communications"
+  description: >-
+    Unified capability for automated incident communication workflows using the
+    Sorry™ API. Enables DevOps and support teams to programmatically manage status
+    pages, publish incident notices, post updates as incidents evolve, and manage
+    subscriber notifications during service disruptions and maintenance windows.
+  tags:
+    - Sorry
+    - Status Pages
+    - Incident Management
+    - Notifications
+    - Customer Communication
+    - DevOps
+  created: "2026-05-02"
+  modified: "2026-05-02"
+
+binds:
+  - namespace: env
+    keys:
+      SORRY_BEARER_TOKEN: SORRY_BEARER_TOKEN
+
+capability:
+  consumes:
+    - import: sorry-api
+      location: ./shared/sorry-status-page.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: sorry-incident-comms-api
+      description: "Unified REST API for automated incident communication workflows via Sorry."
+      resources:
+        - path: /v1/pages
+          name: pages
+          description: Status page management
+          operations:
+            - method: GET
+              name: list-pages
+              description: List all status pages in the account
+              call: "sorry-api.list-pages"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+            - method: POST
+              name: create-page
+              description: Create a new status page
+              call: "sorry-api.create-page"
+              with:
+                name: "rest.name"
+                timezone: "rest.timezone"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/pages/{page_id}/components
+          name: components
+          description: Component management
+          operations:
+            - method: GET
+              name: list-components
+              description: List components for a status page
+              call: "sorry-api.list-components"
+              with:
+                page_id: "rest.page_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+            - method: POST
+              name: create-component
+              description: Add a component to a status page
+              call: "sorry-api.create-component"
+              with:
+                page_id: "rest.page_id"
+                name: "rest.name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/pages/{page_id}/notices
+          name: notices
+          description: Incident and maintenance notices
+          operations:
+            - method: GET
+              name: list-notices
+              description: List all notices for a status page
+              call: "sorry-api.list-notices"
+              with:
+                page_id: "rest.page_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+            - method: POST
+              name: create-notice
+              description: Create an incident or maintenance notice
+              call: "sorry-api.create-notice"
+              with:
+                page_id: "rest.page_id"
+                type: "rest.type"
+                subject: "rest.subject"
+                initial_comment: "rest.initial_comment"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/pages/{page_id}/notices/{notice_id}/updates
+          name: notice-updates
+          description: Incident status updates
+          operations:
+            - method: GET
+              name: list-notice-updates
+              description: List all updates for a notice
+              call: "sorry-api.list-notice-updates"
+              with:
+                page_id: "rest.page_id"
+                notice_id: "rest.notice_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+            - method: POST
+              name: create-notice-update
+              description: Publish an update to an active incident notice
+              call: "sorry-api.create-notice-update"
+              with:
+                page_id: "rest.page_id"
+                notice_id: "rest.notice_id"
+                content: "rest.content"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/pages/{page_id}/subscribers
+          name: subscribers
+          description: Subscriber management
+          operations:
+            - method: GET
+              name: list-subscribers
+              description: List all subscribers for a status page
+              call: "sorry-api.list-subscribers"
+              with:
+                page_id: "rest.page_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+            - method: POST
+              name: create-subscriber
+              description: Add a subscriber to a status page
+              call: "sorry-api.create-subscriber"
+              with:
+                page_id: "rest.page_id"
+                email: "rest.email"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: sorry-incident-comms-mcp
+      transport: http
+      description: "MCP server for AI-assisted incident communication using Sorry status pages."
+      tools:
+        - name: list-status-pages
+          description: >-
+            List all status pages in the Sorry account. Use to find page IDs for
+            subsequent operations during incident response.
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "sorry-api.list-pages"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-components
+          description: >-
+            List all components for a status page. Use to identify affected components
+            before creating incident notices.
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "sorry-api.list-components"
+          with:
+            page_id: "tools.page_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: create-incident-notice
+          description: >-
+            Create an incident notice on a status page to notify customers of an unplanned
+            outage or service degradation. Use for incident declaration.
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "sorry-api.create-notice"
+          with:
+            page_id: "tools.page_id"
+            type: "tools.type"
+            subject: "tools.subject"
+            initial_comment: "tools.initial_comment"
+            should_publish: "tools.should_publish"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-notices
+          description: >-
+            List all notices for a status page. Use to find active incidents or
+            review recent maintenance windows.
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "sorry-api.list-notices"
+          with:
+            page_id: "tools.page_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: update-incident-state
+          description: >-
+            Update the state or details of an existing incident notice. Use to
+            progress an incident through monitoring, resolved, or completed states.
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: true
+          call: "sorry-api.update-notice"
+          with:
+            page_id: "tools.page_id"
+            notice_id: "tools.notice_id"
+            state: "tools.state"
+            additional_comment: "tools.additional_comment"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: publish-incident-update
+          description: >-
+            Publish a new status update to an existing incident notice. Use to keep
+            customers informed as the incident investigation progresses.
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "sorry-api.create-notice-update"
+          with:
+            page_id: "tools.page_id"
+            notice_id: "tools.notice_id"
+            content: "tools.content"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: list-subscribers
+          description: >-
+            List subscribers for a status page. Use to understand notification reach
+            before publishing a major incident notice.
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "sorry-api.list-subscribers"
+          with:
+            page_id: "tools.page_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: add-subscriber
+          description: >-
+            Add a new subscriber to receive status page notifications via email
+            or SMS.
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "sorry-api.create-subscriber"
+          with:
+            page_id: "tools.page_id"
+            email: "tools.email"
+            first_name: "tools.first_name"
+            last_name: "tools.last_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
