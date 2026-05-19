@@ -51,6 +51,8 @@ apis:
         url: https://www.sorryapp.com/
         email: ''
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/sorry-as-a-service
   - type: Portal
     url: https://www.sorryapp.com/
   - type: Documentation
