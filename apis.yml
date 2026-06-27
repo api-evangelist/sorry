@@ -63,7 +63,7 @@ common:
     url: https://www.sorryapp.com/status-api/
   - type: Dashboard
     url: https://app.sorryapp.com/
-  - type: GitHub Org
+  - type: GitHubOrg
     url: https://github.com/sorry-app
   - type: Pricing
     url: https://www.sorryapp.com/pricing/
