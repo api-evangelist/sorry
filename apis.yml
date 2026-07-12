@@ -51,6 +51,10 @@ apis:
         url: https://www.sorryapp.com/
         email: ''
 common:
+  - type: VulnerabilityDisclosure
+    url: security/sorry-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/sorry-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/sorry-as-a-service
   - type: Portal
