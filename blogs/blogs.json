@@ -2,14 +2,14 @@
   "repo": "sorry",
   "feeds": [
     {
-      "source": "https://www.sorryapp.com/blog/",
-      "feed_url": "",
+      "source": "https://www.sorryapp.com/pricing/",
+      "feed_url": "https://www.sorryapp.com/pricing/",
+      "title": "",
       "saved": 0,
-      "method": "agent-scrape",
-      "error": "no determinable post dates on listing"
+      "method": "none"
     }
   ],
-  "fetched": "2026-06-27T13:12:30Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 9,
-  "agent_pulled": "2026-06-27"
+  "agent_pulled": "2026-07-04"
 }
