@@ -630,7 +630,7 @@ paths:
             type: integer
         - name: include
           in: query
-          description: Related resources to include (valid value: components)
+          description: "Related resources to include (valid value: components)"
           required: false
           schema:
             type: string
