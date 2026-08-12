@@ -35,33 +35,86 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/sorry/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-  - aid: sorry:sorry-status-page-api
-    name: Sorry Status Page API
-    description: >-
-      The Sorry™ REST API provides programmatic access to manage status pages,
-      components, incident notices, notice updates, and subscriber lists. Supports
-      Bearer token authentication and rate limiting of 10 requests per second.
-    humanURL: https://docs.sorryapp.com/v1
-    baseURL: https://api.sorryapp.com/v1
-    tags:
-      - Status Pages
-      - Incident Management
-      - Notifications
-      - Subscribers
-    properties:
-      - type: Documentation
-        url: https://docs.sorryapp.com/v1
-      - type: Reference
-        url: https://docs.sorryapp.com/v1
-      - type: GettingStarted
-        url: https://app.sorryapp.com
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/sorry/refs/heads/main/openapi/sorry-status-page-openapi.yml
-    contact:
-      - FN: Sorry App Support
-        url: https://www.sorryapp.com/
-        email: ''
+- aid: sorry:sorry-components-api
+  name: Sorry Components API
+  description: Manage components displayed on status pages
+  humanURL: https://docs.sorryapp.com/v1
+  baseURL: https://api.sorryapp.com/v1
+  tags:
+  - Components
+  properties:
+  - type: OpenAPI
+    url: openapi/sorry-components-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sorryapp.com/v1
+  - type: Reference
+    url: https://docs.sorryapp.com/v1
+  - type: GettingStarted
+    url: https://app.sorryapp.com
+- aid: sorry:sorry-notice-updates-api
+  name: Sorry Notice Updates API
+  description: Publish updates to active notices
+  humanURL: https://docs.sorryapp.com/v1
+  baseURL: https://api.sorryapp.com/v1
+  tags:
+  - Notice Updates
+  properties:
+  - type: OpenAPI
+    url: openapi/sorry-notice-updates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sorryapp.com/v1
+  - type: Reference
+    url: https://docs.sorryapp.com/v1
+  - type: GettingStarted
+    url: https://app.sorryapp.com
+- aid: sorry:sorry-notices-api
+  name: Sorry Notices API
+  description: Manage incident and maintenance notices
+  humanURL: https://docs.sorryapp.com/v1
+  baseURL: https://api.sorryapp.com/v1
+  tags:
+  - Notices
+  properties:
+  - type: OpenAPI
+    url: openapi/sorry-notices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sorryapp.com/v1
+  - type: Reference
+    url: https://docs.sorryapp.com/v1
+  - type: GettingStarted
+    url: https://app.sorryapp.com
+- aid: sorry:sorry-status-pages-api
+  name: Sorry Status Pages API
+  description: Manage status pages in your account
+  humanURL: https://docs.sorryapp.com/v1
+  baseURL: https://api.sorryapp.com/v1
+  tags:
+  - Status Pages
+  properties:
+  - type: OpenAPI
+    url: openapi/sorry-status-pages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sorryapp.com/v1
+  - type: Reference
+    url: https://docs.sorryapp.com/v1
+  - type: GettingStarted
+    url: https://app.sorryapp.com
+- aid: sorry:sorry-subscribers-api
+  name: Sorry Subscribers API
+  description: Manage subscriber lists for status page notifications
+  humanURL: https://docs.sorryapp.com/v1
+  baseURL: https://api.sorryapp.com/v1
+  tags:
+  - Subscribers
+  properties:
+  - type: OpenAPI
+    url: openapi/sorry-subscribers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.sorryapp.com/v1
+  - type: Reference
+    url: https://docs.sorryapp.com/v1
+  - type: GettingStarted
+    url: https://app.sorryapp.com
 common:
   - type: VulnerabilityDisclosure
     url: security/sorry-vulnerability-disclosure.yml
