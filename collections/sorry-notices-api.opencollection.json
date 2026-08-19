@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sorry Status Page Notices API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Notices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/notices",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated related resources to include (e.g., components,updates)"
+              }
+            ]
+          },
+          "docs": "Displays a list of all notices for a single status page."
+        },
+        {
+          "info": {
+            "name": "Create Notice",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/notices",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new incident, maintenance, or general notice on a status page."
+        },
+        {
+          "info": {
+            "name": "Get Notice",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/notices/:notice_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "notice_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Related resources to include (e.g., components,updates)"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a single notice."
+        },
+        {
+          "info": {
+            "name": "Update Notice",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/notices/:notice_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "notice_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a notice's details such as subject, state, or affected components."
+        },
+        {
+          "info": {
+            "name": "Delete Notice",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/notices/:notice_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "notice_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a notice from the status page."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

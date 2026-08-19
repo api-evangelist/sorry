@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sorry Status Page Components API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Components",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Components",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/components",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the status page"
+              }
+            ]
+          },
+          "docs": "Displays a list of all components for a single status page."
+        },
+        {
+          "info": {
+            "name": "Create Component",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/components",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the status page"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new component to a status page."
+        },
+        {
+          "info": {
+            "name": "Get Component",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/components/:component_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a single component including its current state."
+        },
+        {
+          "info": {
+            "name": "Update Component",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/components/:component_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update properties of a component such as name, description, or position."
+        },
+        {
+          "info": {
+            "name": "Delete Component",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/components/:component_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a component. Does not delete associated notices."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

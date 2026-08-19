@@ -1,0 +1,162 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sorry Status Page Notice Updates API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notice Updates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Notice Updates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/notices/:notice_id/updates",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "notice_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Displays a list of all updates for a single notice."
+        },
+        {
+          "info": {
+            "name": "Create Notice Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/notices/:notice_id/updates",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "notice_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Publish a new update to an existing notice."
+        },
+        {
+          "info": {
+            "name": "Get Notice Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/notices/:notice_id/updates/:update_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "notice_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "update_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details of a single notice update."
+        },
+        {
+          "info": {
+            "name": "Update Notice Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/notices/:notice_id/updates/:update_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "notice_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "update_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify an existing notice update, such as correcting content."
+        },
+        {
+          "info": {
+            "name": "Delete Notice Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/notices/:notice_id/updates/:update_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "notice_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "update_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove an update from a notice without deleting the notice itself."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

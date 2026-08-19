@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sorry Status Page Status Pages API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Status Pages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Status Pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sorryapp.com/v1/pages"
+          },
+          "docs": "Displays a list of all status pages within the account."
+        },
+        {
+          "info": {
+            "name": "Create Status Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sorryapp.com/v1/pages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new status page for your account."
+        },
+        {
+          "info": {
+            "name": "Get Status Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the status page"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a single status page."
+        },
+        {
+          "info": {
+            "name": "Update Status Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the status page"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update settings for a status page such as name, timezone, and support links."
+        },
+        {
+          "info": {
+            "name": "Delete Status Page",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the status page"
+              }
+            ]
+          },
+          "docs": "Delete the status page including all notices, components, and subscribers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

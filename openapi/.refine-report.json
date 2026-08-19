@@ -1,0 +1,29 @@
+{
+  "provider": "sorry",
+  "sources": [
+    "sorry-components-api-openapi.yml",
+    "sorry-notice-updates-api-openapi.yml",
+    "sorry-notices-api-openapi.yml",
+    "sorry-status-pages-api-openapi.yml",
+    "sorry-subscribers-api-openapi.yml"
+  ],
+  "outputs": [
+    "sorry-components-api-openapi.yml",
+    "sorry-notice-updates-api-openapi.yml",
+    "sorry-notices-api-openapi.yml",
+    "sorry-status-pages-api-openapi.yml",
+    "sorry-subscribers-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sorry-components-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "sorry-notice-updates-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "sorry-notices-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "sorry-status-pages-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "sorry-subscribers-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

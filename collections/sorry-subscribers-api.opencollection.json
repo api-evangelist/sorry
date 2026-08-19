@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sorry Status Page Subscribers API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscribers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Subscribers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/subscribers",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Pagination page number (500 subscribers per page)"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Related resources to include (valid value: components)"
+              }
+            ]
+          },
+          "docs": "Displays a list of all subscribers for a status page (500 per page)."
+        },
+        {
+          "info": {
+            "name": "Create Subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/subscribers",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new subscriber to a status page."
+        },
+        {
+          "info": {
+            "name": "Get Subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/subscribers/:subscriber_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subscriber_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a single subscriber."
+        },
+        {
+          "info": {
+            "name": "Update Subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/subscribers/:subscriber_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subscriber_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a subscriber's contact information or component subscriptions."
+        },
+        {
+          "info": {
+            "name": "Delete Subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sorryapp.com/v1/pages/:page_id/subscribers/:subscriber_id",
+            "params": [
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "subscriber_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove a subscriber from a status page."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
