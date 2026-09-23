@@ -185,28 +185,6 @@ paths:
           description: Notice update not found
 components:
   schemas:
-    CreateNoticeUpdateRequest:
-      type: object
-      required:
-      - content
-      properties:
-        content:
-          type: string
-          description: Text content for the notice update
-    NoticeUpdatesResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/NoticeUpdate'
-        count:
-          type: integer
-    NoticeUpdateResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/NoticeUpdate'
     NoticeUpdate:
       type: object
       properties:
@@ -225,6 +203,28 @@ components:
         updated_at:
           type: string
           format: date-time
+    NoticeUpdateResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/NoticeUpdate'
+    NoticeUpdatesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoticeUpdate'
+        count:
+          type: integer
+    CreateNoticeUpdateRequest:
+      type: object
+      required:
+      - content
+      properties:
+        content:
+          type: string
+          description: Text content for the notice update
   securitySchemes:
     BearerAuth:
       type: http

@@ -190,37 +190,6 @@ components:
           type: string
         tag_list:
           type: string
-    SubscribersResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Subscriber'
-        count:
-          type: integer
-    CreateSubscriberRequest:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-        phone_number:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        nickname:
-          type: string
-        company:
-          type: string
-        tag_list:
-          type: string
-        component_ids:
-          type: array
-          items:
-            type: integer
     SubscriberResponse:
       type: object
       properties:
@@ -254,6 +223,37 @@ components:
         updated_at:
           type: string
           format: date-time
+    SubscribersResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscriber'
+        count:
+          type: integer
+    CreateSubscriberRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        nickname:
+          type: string
+        company:
+          type: string
+        tag_list:
+          type: string
+        component_ids:
+          type: array
+          items:
+            type: integer
   securitySchemes:
     BearerAuth:
       type: http

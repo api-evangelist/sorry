@@ -1,11 +1,7 @@
 {
   "provider": "sorry",
   "sources": [
-    "sorry-components-api-openapi.yml",
-    "sorry-notice-updates-api-openapi.yml",
-    "sorry-notices-api-openapi.yml",
-    "sorry-status-pages-api-openapi.yml",
-    "sorry-subscribers-api-openapi.yml"
+    "_original/sorry-status-page-openapi.yml"
   ],
   "outputs": [
     "sorry-components-api-openapi.yml",
@@ -18,12 +14,15 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "sorry-components-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "sorry-notice-updates-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "sorry-notices-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "sorry-status-pages-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "sorry-subscribers-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sorry-status-page-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "sorry-components-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sorry-notice-updates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sorry-notices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sorry-status-pages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sorry-subscribers-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

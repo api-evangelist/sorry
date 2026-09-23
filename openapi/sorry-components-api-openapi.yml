@@ -164,35 +164,6 @@ paths:
           description: Component not found
 components:
   schemas:
-    CreateComponentRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        position:
-          type: integer
-        parent_id:
-          type: integer
-    UpdateComponentRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        position:
-          type: integer
-        parent_id:
-          type: integer
-    ComponentResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/Component'
     Component:
       type: object
       properties:
@@ -232,6 +203,35 @@ components:
           items:
             $ref: '#/components/schemas/Component'
         count:
+          type: integer
+    UpdateComponentRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        position:
+          type: integer
+        parent_id:
+          type: integer
+    ComponentResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Component'
+    CreateComponentRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        position:
+          type: integer
+        parent_id:
           type: integer
   securitySchemes:
     BearerAuth:
