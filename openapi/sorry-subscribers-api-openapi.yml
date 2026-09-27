@@ -172,6 +172,28 @@ paths:
           description: Subscriber not found
 components:
   schemas:
+    CreateSubscriberRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        nickname:
+          type: string
+        company:
+          type: string
+        tag_list:
+          type: string
+        component_ids:
+          type: array
+          items:
+            type: integer
     UpdateSubscriberRequest:
       type: object
       properties:
@@ -190,11 +212,15 @@ components:
           type: string
         tag_list:
           type: string
-    SubscriberResponse:
+    SubscribersResponse:
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/Subscriber'
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscriber'
+        count:
+          type: integer
     Subscriber:
       type: object
       properties:
@@ -223,37 +249,11 @@ components:
         updated_at:
           type: string
           format: date-time
-    SubscribersResponse:
+    SubscriberResponse:
       type: object
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Subscriber'
-        count:
-          type: integer
-    CreateSubscriberRequest:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-        phone_number:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        nickname:
-          type: string
-        company:
-          type: string
-        tag_list:
-          type: string
-        component_ids:
-          type: array
-          items:
-            type: integer
+          $ref: '#/components/schemas/Subscriber'
   securitySchemes:
     BearerAuth:
       type: http

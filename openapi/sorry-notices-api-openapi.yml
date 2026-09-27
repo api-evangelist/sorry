@@ -174,6 +174,21 @@ paths:
           description: Notice not found
 components:
   schemas:
+    UpdateNoticeRequest:
+      type: object
+      properties:
+        subject:
+          type: string
+        state:
+          type: string
+        additional_comment:
+          type: string
+        component_ids:
+          type: array
+          items:
+            type: integer
+        should_publish:
+          type: boolean
     NoticeResponse:
       type: object
       properties:
@@ -250,21 +265,6 @@ components:
         updated_at:
           type: string
           format: date-time
-    UpdateNoticeRequest:
-      type: object
-      properties:
-        subject:
-          type: string
-        state:
-          type: string
-        additional_comment:
-          type: string
-        component_ids:
-          type: array
-          items:
-            type: integer
-        should_publish:
-          type: boolean
     NoticesResponse:
       type: object
       properties:

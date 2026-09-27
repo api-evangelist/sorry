@@ -138,15 +138,28 @@ paths:
           description: Status page not found
 components:
   schemas:
-    PagesResponse:
+    PageResponse:
       type: object
       properties:
         data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Page'
-        count:
-          type: integer
+          $ref: '#/components/schemas/Page'
+    UpdatePageRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        timezone:
+          type: string
+        support_email:
+          type: string
+          format: email
+        support_telephone:
+          type: string
+        support_url:
+          type: string
+          format: uri
+        visible_to_search:
+          type: boolean
     Page:
       type: object
       properties:
@@ -202,28 +215,15 @@ components:
         support_url:
           type: string
           format: uri
-    PageResponse:
+    PagesResponse:
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/Page'
-    UpdatePageRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        timezone:
-          type: string
-        support_email:
-          type: string
-          format: email
-        support_telephone:
-          type: string
-        support_url:
-          type: string
-          format: uri
-        visible_to_search:
-          type: boolean
+          type: array
+          items:
+            $ref: '#/components/schemas/Page'
+        count:
+          type: integer
   securitySchemes:
     BearerAuth:
       type: http

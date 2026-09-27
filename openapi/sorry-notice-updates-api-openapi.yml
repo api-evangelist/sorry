@@ -203,6 +203,14 @@ components:
         updated_at:
           type: string
           format: date-time
+    CreateNoticeUpdateRequest:
+      type: object
+      required:
+      - content
+      properties:
+        content:
+          type: string
+          description: Text content for the notice update
     NoticeUpdateResponse:
       type: object
       properties:
@@ -217,14 +225,6 @@ components:
             $ref: '#/components/schemas/NoticeUpdate'
         count:
           type: integer
-    CreateNoticeUpdateRequest:
-      type: object
-      required:
-      - content
-      properties:
-        content:
-          type: string
-          description: Text content for the notice update
   securitySchemes:
     BearerAuth:
       type: http
