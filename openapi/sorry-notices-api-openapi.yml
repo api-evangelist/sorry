@@ -174,56 +174,19 @@ paths:
           description: Notice not found
 components:
   schemas:
-    UpdateNoticeRequest:
-      type: object
-      properties:
-        subject:
-          type: string
-        state:
-          type: string
-        additional_comment:
-          type: string
-        component_ids:
-          type: array
-          items:
-            type: integer
-        should_publish:
-          type: boolean
     NoticeResponse:
       type: object
       properties:
         data:
           $ref: '#/components/schemas/Notice'
-    CreateNoticeRequest:
+    NoticesResponse:
       type: object
-      required:
-      - type
-      - subject
       properties:
-        type:
-          type: string
-          enum:
-          - unplanned
-          - planned
-          - general
-        subject:
-          type: string
-        initial_comment:
-          type: string
-        state:
-          type: string
-        component_ids:
+        data:
           type: array
           items:
-            type: integer
-        should_publish:
-          type: boolean
-        begins_at_date:
-          type: string
-          format: date
-        begins_at_time:
-          type: string
-        duration_in_minutes:
+            $ref: '#/components/schemas/Notice'
+        count:
           type: integer
     Notice:
       type: object
@@ -265,15 +228,52 @@ components:
         updated_at:
           type: string
           format: date-time
-    NoticesResponse:
+    CreateNoticeRequest:
       type: object
+      required:
+      - type
+      - subject
       properties:
-        data:
+        type:
+          type: string
+          enum:
+          - unplanned
+          - planned
+          - general
+        subject:
+          type: string
+        initial_comment:
+          type: string
+        state:
+          type: string
+        component_ids:
           type: array
           items:
-            $ref: '#/components/schemas/Notice'
-        count:
+            type: integer
+        should_publish:
+          type: boolean
+        begins_at_date:
+          type: string
+          format: date
+        begins_at_time:
+          type: string
+        duration_in_minutes:
           type: integer
+    UpdateNoticeRequest:
+      type: object
+      properties:
+        subject:
+          type: string
+        state:
+          type: string
+        additional_comment:
+          type: string
+        component_ids:
+          type: array
+          items:
+            type: integer
+        should_publish:
+          type: boolean
   securitySchemes:
     BearerAuth:
       type: http

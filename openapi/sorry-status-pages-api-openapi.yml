@@ -143,6 +143,23 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/Page'
+    CreatePageRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new status page
+        timezone:
+          type: string
+          description: Timezone setting
+        support_email:
+          type: string
+          format: email
+        support_url:
+          type: string
+          format: uri
     UpdatePageRequest:
       type: object
       properties:
@@ -198,23 +215,6 @@ components:
         updated_at:
           type: string
           format: date-time
-    CreatePageRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the new status page
-        timezone:
-          type: string
-          description: Timezone setting
-        support_email:
-          type: string
-          format: email
-        support_url:
-          type: string
-          format: uri
     PagesResponse:
       type: object
       properties:

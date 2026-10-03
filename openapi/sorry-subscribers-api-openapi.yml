@@ -194,24 +194,11 @@ components:
           type: array
           items:
             type: integer
-    UpdateSubscriberRequest:
+    SubscriberResponse:
       type: object
       properties:
-        email:
-          type: string
-          format: email
-        phone_number:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-        nickname:
-          type: string
-        company:
-          type: string
-        tag_list:
-          type: string
+        data:
+          $ref: '#/components/schemas/Subscriber'
     SubscribersResponse:
       type: object
       properties:
@@ -249,11 +236,24 @@ components:
         updated_at:
           type: string
           format: date-time
-    SubscriberResponse:
+    UpdateSubscriberRequest:
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/Subscriber'
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        nickname:
+          type: string
+        company:
+          type: string
+        tag_list:
+          type: string
   securitySchemes:
     BearerAuth:
       type: http
