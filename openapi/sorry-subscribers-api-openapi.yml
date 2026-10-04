@@ -172,6 +172,20 @@ paths:
           description: Subscriber not found
 components:
   schemas:
+    SubscriberResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Subscriber'
+    SubscribersResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscriber'
+        count:
+          type: integer
     CreateSubscriberRequest:
       type: object
       properties:
@@ -194,20 +208,6 @@ components:
           type: array
           items:
             type: integer
-    SubscriberResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/Subscriber'
-    SubscribersResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Subscriber'
-        count:
-          type: integer
     Subscriber:
       type: object
       properties:

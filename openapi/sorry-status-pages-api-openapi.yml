@@ -138,6 +138,53 @@ paths:
           description: Status page not found
 components:
   schemas:
+    PagesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Page'
+        count:
+          type: integer
+    Page:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the status page
+        name:
+          type: string
+          description: Display name of the status page
+        timezone:
+          type: string
+          description: Timezone for the status page
+        state:
+          type: string
+          description: Current state of the status page
+        support_email:
+          type: string
+          format: email
+          description: Support contact email address
+        support_telephone:
+          type: string
+          description: Support telephone number
+        support_url:
+          type: string
+          format: uri
+          description: Support URL
+        locale:
+          type: string
+          description: Locale setting for the page
+        visible_to_search:
+          type: boolean
+          description: Whether the page is visible to search engines
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     PageResponse:
       type: object
       properties:
@@ -177,53 +224,6 @@ components:
           format: uri
         visible_to_search:
           type: boolean
-    Page:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the status page
-        name:
-          type: string
-          description: Display name of the status page
-        timezone:
-          type: string
-          description: Timezone for the status page
-        state:
-          type: string
-          description: Current state of the status page
-        support_email:
-          type: string
-          format: email
-          description: Support contact email address
-        support_telephone:
-          type: string
-          description: Support telephone number
-        support_url:
-          type: string
-          format: uri
-          description: Support URL
-        locale:
-          type: string
-          description: Locale setting for the page
-        visible_to_search:
-          type: boolean
-          description: Whether the page is visible to search engines
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    PagesResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Page'
-        count:
-          type: integer
   securitySchemes:
     BearerAuth:
       type: http
