@@ -134,6 +134,9 @@ apis:
   - type: GettingStarted
     url: https://app.sorryapp.com
 common:
+  - type: CapabilityMap
+    url: capabilities/sorry-capability-edges.yml
+    name: Sorry Business Capability Map
   - type: VulnerabilityDisclosure
     url: security/sorry-vulnerability-disclosure.yml
   - type: DomainSecurity
