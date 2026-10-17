@@ -138,6 +138,45 @@ paths:
           description: Status page not found
 components:
   schemas:
+    CreatePageRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the new status page
+        timezone:
+          type: string
+          description: Timezone setting
+        support_email:
+          type: string
+          format: email
+        support_url:
+          type: string
+          format: uri
+    PageResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Page'
+    UpdatePageRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        timezone:
+          type: string
+        support_email:
+          type: string
+          format: email
+        support_telephone:
+          type: string
+        support_url:
+          type: string
+          format: uri
+        visible_to_search:
+          type: boolean
     PagesResponse:
       type: object
       properties:
@@ -185,45 +224,6 @@ components:
         updated_at:
           type: string
           format: date-time
-    PageResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/Page'
-    CreatePageRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the new status page
-        timezone:
-          type: string
-          description: Timezone setting
-        support_email:
-          type: string
-          format: email
-        support_url:
-          type: string
-          format: uri
-    UpdatePageRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        timezone:
-          type: string
-        support_email:
-          type: string
-          format: email
-        support_telephone:
-          type: string
-        support_url:
-          type: string
-          format: uri
-        visible_to_search:
-          type: boolean
   securitySchemes:
     BearerAuth:
       type: http

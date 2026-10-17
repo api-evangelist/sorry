@@ -205,11 +205,6 @@ components:
           type: string
         duration_in_minutes:
           type: integer
-    NoticeResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/Notice'
     UpdateNoticeRequest:
       type: object
       properties:
@@ -225,15 +220,6 @@ components:
             type: integer
         should_publish:
           type: boolean
-    NoticesResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Notice'
-        count:
-          type: integer
     Notice:
       type: object
       properties:
@@ -274,6 +260,20 @@ components:
         updated_at:
           type: string
           format: date-time
+    NoticeResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Notice'
+    NoticesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notice'
+        count:
+          type: integer
   securitySchemes:
     BearerAuth:
       type: http
