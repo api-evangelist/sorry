@@ -1,4 +1,4 @@
-# Sorry (sorry)
+# Sorry
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,67 +66,159 @@
 
 Sorry™ (SorryApp) is a status page platform that enables teams to communicate planned and unplanned service interruptions to their customers. The Sorry REST API provides full programmatic control over status pages, components, incident notices, notice updates, and subscriber management. Build automated incident communication workflows that integrate with monitoring tools, alerting platforms, and customer notification systems.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/sorry/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/sorry/refs/heads/main/apis.yml)
+**Areas:** Status Pages · Incident Management · Developer Tools · Monitoring · Notification
 
-## Scope
+## Sorry on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Sorry is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/sorry/](https://apis.io/providers/sorry/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (5)
 
-- Status Pages
-- Incident Management
-- Developer Tools
-- Monitoring
-- Notifications
+- [Sorry Components API](https://apis.io/apis/sorry/sorry-components-api/) — Manage components displayed on status pages
+- [Sorry Notice Updates API](https://apis.io/apis/sorry/sorry-notice-updates-api/) — Publish updates to active notices
+- [Sorry Notices API](https://apis.io/apis/sorry/sorry-notices-api/) — Manage incident and maintenance notices
+- [Sorry Status Pages API](https://apis.io/apis/sorry/sorry-status-pages-api/) — Manage status pages in your account
+- [Sorry Subscribers API](https://apis.io/apis/sorry/sorry-subscribers-api/) — Manage subscriber lists for status page notifications
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-16
-- **Modified:** 2026-05-02
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### JSON Schema (2)
 
-### Sorry Status Page API
+The data models the API reads and writes.
 
-The Sorry™ REST API provides programmatic access to manage status pages, components, incident notices, notice updates, and subscriber lists. Supports Bearer token authentication and rate limiting of 10 requests per second.
+- [Sorry Notice](https://apis.io/schemas/sorry/sorry-notice/)
+- [Sorry Status Page](https://apis.io/schemas/sorry/sorry-page/)
 
-- **Human URL:** [https://docs.sorryapp.com/v1](https://docs.sorryapp.com/v1)
-- **Base URL:** `https://api.sorryapp.com/v1`
+#### JSON Structure (1)
 
-#### Tags
+Data models expressed in JSON Structure.
 
-- Status Pages
-- Incident Management
-- Notifications
-- Subscribers
+- [Sorry Notice Structure](https://apis.io/json-structure/sorry/sorry-notice-structure/)
 
-#### Properties
+#### JSON-LD (1)
 
-- [Documentation](https://docs.sorryapp.com/v1)
-- [Reference](https://docs.sorryapp.com/v1)
-- [Getting Started](https://app.sorryapp.com)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/sorry/refs/heads/main/openapi/sorry-status-page-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+Linked-data contexts for the provider's vocabulary.
 
-## Common Properties
+- [Sorry Context](https://apis.io/jsonld/sorry/sorry-context/)
 
-- [LinkedIn](https://www.linkedin.com/company/sorry-as-a-service)
-- [Portal](https://www.sorryapp.com/)
-- [Documentation](https://docs.sorryapp.com/v1)
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Sorry Vocabulary](https://apis.io/vocabularies/sorry/sorry-vocabulary/)
+
+#### Examples (1)
+
+Example requests and responses.
+
+- [Sorry Create Notice Example](https://apis.io/examples/sorry/sorry-create-notice-example/)
+
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [Sorry Status Page Components API](https://apis.io/collections/sorry/open-sorry-components-api/)
+- [Sorry Status Page Notice Updates API](https://apis.io/collections/sorry/open-sorry-notice-updates-api/)
+- [Sorry Status Page Notices API](https://apis.io/collections/sorry/open-sorry-notices-api/)
+- [Sorry Status Page Status Pages API](https://apis.io/collections/sorry/open-sorry-status-pages-api/)
+- [Sorry Status Page Subscribers API](https://apis.io/collections/sorry/open-sorry-subscribers-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Sorry — jsonschema rules](https://apis.io/rules/sorry/sorry-jsonschema-spectral-rules/)
+- [Sorry API Rules](https://apis.io/rules/sorry/sorry-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Sorry Domain Security](https://apis.io/security/sorry/sorry-domain-security/)
+- [Sorry Vulnerability Disclosure](https://apis.io/security/sorry/sorry-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Sorry Plans Pricing](https://apis.io/plans/sorry/sorry-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Sorry Rate Limits](https://apis.io/rate-limits/sorry/sorry-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Sorry Finops](https://apis.io/finops/sorry/sorry-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.sorryapp.com/)
-- [Status  A P I](https://www.sorryapp.com/status-api/)
-- [Dashboard](https://app.sorryapp.com/)
-- [Git Hub  Org](https://github.com/sorry-app)
+- [Documentation](https://docs.sorryapp.com/v1)
 - [Pricing](https://www.sorryapp.com/pricing/)
 - [Blog](https://www.sorryapp.com/blog/)
-- [Status Page](https://status.sorryapp.com/)
-- [Integrations](https://www.sorryapp.com/integrations/)
-- [Terms](https://www.sorryapp.com/terms/)
-- [Privacy Policy](https://www.sorryapp.com/privacy/)
+- [Privacy policy](https://www.sorryapp.com/privacy/)
+- [Status](https://status.sorryapp.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 41.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 62.6 |
+| Contract governance | 13.6 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 40.5 |
+| Access clarity | 18.4 |
+
+**Agent readiness 17.3** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/sorry/](https://apis.io/providers/sorry/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Sorry: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/sorry/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
